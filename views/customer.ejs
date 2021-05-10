@@ -47,58 +47,34 @@
 
 <!-- Omitted Error Checking / Needs to be added -->
 <% if (type === "post") { %>
+    <% if (model) { %>
+            <script>
+                //document.getElementById("cusLname").value
+                var modelObject = <%- model %>
+                if (modelObject.cusId){
+                    document.getElementById("cusId").value = modelObject.cusId
+                }
+                if (modelObject.cusFname){
+                    document.getElementById("cusFname").value = modelObject.cusFname
+                }
+                if (modelObject.cusLname){
+                    document.getElementById("cusLname").value = modelObject.cusLname
+                }
+                if (modelObject.cusState){
+                    document.getElementById("cusState").value = modelObject.cusState
+                }
+                if (modelObject.cusSalesytd){
+                    document.getElementById("cusSalesytd").value = modelObject.cusSalesytd
+                }
+                if (modelObject.cusSalesPrev){
+                    document.getElementById("cusSalesPrev").value = modelObject.cusSalesPrev
+                }
+            </script>
+    <% } %>
     <% if (result.result.length === 0) { %>
         <h3>No records found!</h3>
-        <% if (model) { %>
-            <script>
-                //document.getElementById("cusLname").value
-                var modelObject = <%- model %>
-                if (modelObject.cusId){
-                    document.getElementById("cusId").value = modelObject.cusId
-                }
-                if (modelObject.cusFname){
-                    document.getElementById("cusFname").value = modelObject.cusFname
-                }
-                if (modelObject.cusLname){
-                    document.getElementById("cusLname").value = modelObject.cusLname
-                }
-                if (modelObject.cusState){
-                    document.getElementById("cusState").value = modelObject.cusState
-                }
-                if (modelObject.cusSalesytd){
-                    document.getElementById("cusSalesytd").value = modelObject.cusSalesytd
-                }
-                if (modelObject.cusSalesPrev){
-                    document.getElementById("cusSalesPrev").value = modelObject.cusSalesPrev
-                }
-            </script>
-            <% } %>
     <% } else { %>
         <h5>Number of Records Found: <%=result.result.length%></h5>
-        <% if (model) { %>
-            <script>
-                //document.getElementById("cusLname").value
-                var modelObject = <%- model %>
-                if (modelObject.cusId){
-                    document.getElementById("cusId").value = modelObject.cusId
-                }
-                if (modelObject.cusFname){
-                    document.getElementById("cusFname").value = modelObject.cusFname
-                }
-                if (modelObject.cusLname){
-                    document.getElementById("cusLname").value = modelObject.cusLname
-                }
-                if (modelObject.cusState){
-                    document.getElementById("cusState").value = modelObject.cusState
-                }
-                if (modelObject.cusSalesytd){
-                    document.getElementById("cusSalesytd").value = modelObject.cusSalesytd
-                }
-                if (modelObject.cusSalesPrev){
-                    document.getElementById("cusSalesPrev").value = modelObject.cusSalesPrev
-                }
-            </script>
-            <% } %>     
         <table style = "width:75%">
             <thead>
                 <tr>
