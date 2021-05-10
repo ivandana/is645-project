@@ -1,0 +1,54 @@
+<%- include("_header") -%>
+<h2>Customer Import</h2>
+<% if (type === "get") { %>
+    Total Number of records in the Database:<%=totRecs%>
+    <p></p>
+<% } %>
+Select a file with customers for Database Insert
+<p></p>
+<form>
+    <input type="file" name="filename" required>
+    <p></p>
+    <input type="submit" id="submit" value="Import Customers" class="btn btn-primary" style="display: block; margin: 0 auto;">
+</form>
+<div id="result">
+<script>
+    document.querySelector("form").addEventListener("submit", e => {
+      // Cancel default behavior of sending a synchronous POST request
+      e.preventDefault();
+      const resultElement = document.getElementById("result");
+      resultElement.innerHTML = "";
+      resultElement.innerHTML = "<h4> Wait for Results...</h4>"
+      // Create a FormData object, passing the form as a parameter
+      const formData = new FormData(e.target);
+      // Send form data to the server with an asynchronous POST request
+      fetch("/import", {
+        method: "POST",
+        body: formData
+      }).then(response => response.json())
+        .then(data => {
+            //console.log(data.result.errorMessage.toString());
+            const resultElement = document.getElementById("result");
+            resultElement.innerHTML = "";
+            resultElement.innerHTML = "<h4> Import Summary</h4>"
+            totalText = `Records processed: ${data.result.numFailed + data.result.numSuccess}`
+            resultElement.innerHTML += `<p><strong> ${totalText} </strong></p>`;
+            successText = `Records Inserted Successfully: ${data.result.numSuccess}`
+            resultElement.innerHTML += `<p><strong> ${successText} </strong></p>`;
+            failText = `Records Not Inserted : ${data.result.numFailed}`
+            resultElement.innerHTML += `<p><strong> ${failText} </strong></p>`;
+            resultElement.innerHTML += "<p></p>"
+            resultElement.innerHTML += "<h6> Errors:</h6>"
+            if (data.result.errorMessage !== ""){
+                for (errorMsg of data.result.errorMessage.split(",")) {
+                    //console.log(customer);
+                    resultElement.innerHTML += `<p>${errorMsg}</p>`
+            }
+        }
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    });
+</script>
+<%- include("_footer") -%>

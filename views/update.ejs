@@ -1,0 +1,44 @@
+<%- include("_header") -%>
+<p></p>
+<h3>Customer Update</h3>
+
+<form action="/update/<%= model.cusid %>" method="post">
+  <div class="form-horizontal">
+
+<%- include("_editor") -%>
+<script>
+  document.getElementById("cusid").readOnly=true;
+  document.getElementById("cusid").required = true;
+  document.getElementById("cusfname").required = true;
+  document.getElementById("cuslname").required = true;
+</script>
+
+  <div class="form-group row">
+      <label class="col-form-label col-sm-2"></label>
+      <div class="col-sm-5">
+        <input type="submit" style="display: block; margin: 0 auto" value="Update Customer" class="btn btn-default btn-warning" />
+        <p></p>
+        <a class="btn btn-primary" href="/customer">Back</a>
+      </div>
+    </div>
+  </div>
+</form>
+<% if (type === "post") { %>
+  <% if(message.substring(0,5) === "Error") { %>
+    <h3>Error updating customer</h2>
+    <p><%= message %></p>
+  <% } %>
+  <% if(message.substring(0,5) !== "Error") { %>
+    <h3>Customer Updated Successfully.</h3>
+    <script>
+      document.getElementById("cusid").readOnly = true;
+      document.getElementById("cusfname").readOnly = true;
+      document.getElementById("cuslname").readOnly = true;
+      document.getElementById("cusstate").readOnly = true;
+      document.getElementById("cussalesytd").readOnly = true;
+      document.getElementById("cussalesprev").readOnly = true;
+    </script>
+  <% } %>
+<% } %>
+
+<%- include("_footer") -%>
